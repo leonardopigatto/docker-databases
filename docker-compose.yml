@@ -1,0 +1,119 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: db_mysql
+      MYSQL_USER: user_mysql
+      MYSQL_PASSWORD: docker-databases
+      MYSQL_ROOT_PASSWORD: root-docker-databases
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./.docker/mysql:/var/lib/mysql
+    networks:
+      - dbnetwork
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 8090:80
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root-docker-databases
+    links:
+      - mysql
+    networks:
+      - dbnetwork
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: docker-databases
+    volumes:
+      - ./.docker/postgresql:/var/lib/postgresql/data 
+    networks:
+      - dbnetwork
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    ports:
+      - "8091:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: docker@databases.db
+      PGADMIN_DEFAULT_PASSWORD: docker-pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - dbnetwork
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root-docker-databases
+    volumes:
+      - ./.docker/mongo:/data/db
+    networks:
+      - dbnetwork
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: unless-stopped
+    ports:
+      - 8092:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: user_mongo
+      ME_CONFIG_BASICAUTH_PASSWORD: docker-databases
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root-docker-databases
+    links:
+      - mongo
+    networks:
+      - dbnetwork
+
+  neo4j:
+    image: neo4j
+    container_name: neo4j
+    restart: unless-stopped
+    ports:
+      - 7474:7474
+      - 7687:7687
+    environment: 
+      # Limites de memória
+      - NEO4J_dbms_memory_pagecache_size=1G
+      - NEO4J_dbms.memory.heap.initial_size=1G
+      - NEO4J_dbms_memory_heap_max__size=1G
+    volumes:
+      - ./.docker/neo4j/conf:/conf
+      - ./.docker/neo4j/data:/data
+      - ./.docker/neo4j/import:/import
+      - ./.docker/neo4j/logs:/logs
+      - ./.docker/neo4j/plugins:/plugins
+    networks:
+      - dbnetwork
+
+networks:
+  dbnetwork:
+    driver: bridge

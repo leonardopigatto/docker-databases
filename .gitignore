@@ -1,0 +1,4 @@
+.docker/*
+!.docker/.gitkeep
+.DS_Store
+.idea
