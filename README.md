@@ -12,7 +12,7 @@ Ambiente com várias opções de bancos de dados e ferramentas para gerenciament
 - [x] pgAdmin
 - [x] MongoDB
 - [x] Mongo Express
-- [x] Neo4j
+- [x] Neo4j (ONgBD 3.6.0)
 
 ### Porta(s) das aplicações:
 
