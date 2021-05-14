@@ -64,7 +64,7 @@ $ sudo docker-compose build
 # Executa os containers (em background)
 $ docker-compose up -d
 
-# Encerra e remove os containers
+# Encerra os containers
 $ docker-compose down
 ```
 
