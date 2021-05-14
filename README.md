@@ -6,22 +6,26 @@
 
 Ambiente com várias opções de bancos de dados e ferramentas para gerenciamento dos mesmos.
 
-- [x] MySQL 5
+- [x] MySQL 5.7
 - [x] phpMyAdmin
 - [x] PostgreSQL
 - [x] pgAdmin
 - [x] MongoDB
 - [x] Mongo Express
-- [x] Neo4j (ONgBD 3.6.0)
+- [x] Redis
+- [x] RedisInsight
+- [x] Neo4j (ONgDB)
 
 ### Porta(s) das aplicações:
 
 - MySQL: `3306`.
 - phpMyAdmin: `8090`.
 - PostgreSQL: `5432`.
-- pgAdmin: `8092`.
+- pgAdmin: `8091`.
 - MongoDB: `27017`.
-- Mongo Express: `8093`.
+- Mongo Express: `8092`.
+- Redis: `6379`.
+- RedisInsight: `8093`.
 - Neo4j: `7687` e `7474`.
 
 ## 🚀 Execução
@@ -29,7 +33,7 @@ Ambiente com várias opções de bancos de dados e ferramentas para gerenciament
 ### Pré-requisitos:
 
 - Docker e Docker Compose.
-- Não ter nenhuma aplicação executando nas portas 8090, 3306, 8091, 5432, 8092, 27017, 7474 e 7687.
+- Não ter nenhuma aplicação executando nas portas 3306, 8090, 5432, 8091, 27017, 8092, 7687 e 7474.
 
 ### Instalação do Docker e Docker Compose:
 
@@ -94,13 +98,23 @@ Acesso ao servidor:
 - Usuário: `user_mongo`.
 - Senha: `docker-databases`.
 
+#### RedisInsight
+
+- http://localhost:8093/.
+
+- Host: `localhost`.
+- Port: `6379`.
+- Name: `Redis`.
+- Username: `default`.
+- Password: `docker-databases`.
+
 #### Neo4j
 
 - http://localhost:7474/.
 
 - Connect URL: `bolt://localhost:7687`.
-- Username: `neo4j`.
-- Password: `neo4j`.
+- Username: `ongdb`.
+- Password: `ongdb`.
 
 ## :warning: Avisos
 

@@ -93,8 +93,27 @@ services:
     networks:
       - dbnetwork
 
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    command: redis-server --requirepass docker-databases
+    ports:
+      - "6379:6379"
+    networks:
+      - dbnetwork
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    restart: unless-stopped
+    ports:
+      - "8093:8001"
+    networks:
+      - dbnetwork
+
   neo4j:
-    image: graphfoundation/ongdb:3.6
+    image: graphfoundation/ongdb:1.0
     container_name: neo4j
     restart: unless-stopped
     ports:
