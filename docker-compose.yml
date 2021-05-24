@@ -40,7 +40,7 @@ services:
     container_name: postgres
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: docker-databases
     volumes:
@@ -53,7 +53,7 @@ services:
     container_name: pgadmin
     restart: unless-stopped
     ports:
-      - "8091:80"
+      - 8091:80
     environment:
       PGADMIN_DEFAULT_EMAIL: docker@databases.db
       PGADMIN_DEFAULT_PASSWORD: docker-pgadmin
@@ -67,7 +67,7 @@ services:
     container_name: mongo
     restart: unless-stopped
     ports:
-      - "27017:27017"
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root-docker-databases
@@ -99,7 +99,7 @@ services:
     restart: unless-stopped
     command: redis-server --requirepass docker-databases
     ports:
-      - "6379:6379"
+      - 6379:6379
     networks:
       - dbnetwork
 
@@ -108,7 +108,7 @@ services:
     container_name: redisinsight
     restart: unless-stopped
     ports:
-      - "8093:8001"
+      - 8093:8001
     networks:
       - dbnetwork
 
